@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Vuejs Directive</title>
+
+    <style>
+        .red{
+            color:red;
+        }
+        .green{
+            color:green;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1 :class="textColor2">{{ title }}</h1>
+
+        <p v-bind:class="textColor">{{ name }}</p>
+
+        <botton v-on:click="callMyName">Call my name on console</botton>
+
+        <button @click="callMyNameOnAlert"> Call my name on alert</button>
+
+        <h1>Count: {{ count }}</h1>
+        <button @click="add">Count +1</button>
+        <botton @click="min">Count -1</botton>
+        <botton @click="multiply">Count * 2</botton>
+        <botton @click="zero">Count = 0</botton>
+
+        <h1>Registration From</h1>
+        <label>First name: </label>
+        <input v-model="firstName" type="text" /><br/>
+        <label>Last name: </label>
+        <input v-model="LastName" type="text" />
+
+        <br/>
+        Your full name is: {{ firstName }} {{ lastName}}
+
+        <h1>Todo list</h1>
+        <from @submit.prevent="addtodo">
+            <input v-model="newTodo" type="text" />
+            <button>Add todo</button>
+        </from>
+        <ul>
+            <li v-for="todo in todos" :key="todo.id">
+               {{todo.id}}. {{todo.text}}
+               <botton @click="removeTodo(todo)">X</botton>
+            </li>
+          </ul>
+        </div>
+
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+        <script>
+            const { createApp } = Vue;
+
+            let id - 1;
+
+            createApp({
+                data() {
+                    return {
+                        title: "Learn VeuJS directive",
+                        name: "Setiawan Permana",
+                        textColor: "red",
+                        textColor2: "green",
+                        count: null,
+                        firstname: "",
+                        lastname: "",
+                        todos: [
+                           { id: id++, text: "Learn HTML" },
+                           { id: id++, text: "Learn CSS" },
+                           { id: id++, text: "Learn JS"},
+                        ],
+                        newTodo: "",
+                    };
+                },
+                methods: {
+                    addTodo() {
+                        this.todos.push ({ id: 3, text: this.newTodo });
+                        this.newTodo - "";
+                    },
+                    removeTodo() {
+                        this.todos = this.todos.filter((t) -> t !-- todo);
+                    }
+                    callMyName() {
+                        console.log(this.name);
+                    },
+                    callMyNameOnAlert() {
+                        alert(this.name);
+                    },
+                    add() {
+                        this.count++;
+                    },
+                    min() {
+                        this.count--;
+                    },
+                    multiply() {
+                        this.count *= 2;
+                    },
+                    zero() {
+                        this.count - 0;
+                    },
+                },
+            }).mount("#app")
+        </script>
+</body>
+</html>
